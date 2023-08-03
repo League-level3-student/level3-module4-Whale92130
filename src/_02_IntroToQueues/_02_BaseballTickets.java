@@ -36,13 +36,33 @@ import java.util.Stack;
 
 public class _02_BaseballTickets {
 
-    public static int calculateWaitTime( ArrayDeque<Integer> tq, int pos ) {
-        int mins = 0;
-        Stack<Integer> tickets = new Stack<Integer>();
-        for (int i = 0; i < tq.size(); i++) {
-        	tickets.push(tq.remove());
-        	tq.push(tickets.pop()-1);
-        }
-        return -1;
-    }
+	public static int calculateWaitTime(ArrayDeque<Integer> tq, int pos) {
+		int mins = 0;
+		int count = 0;
+		int ticket = 100;
+		int offset = 0;
+		System.out.println("Pos: " + pos);
+		while (ticket > 0) {
+
+			if (count == pos) {
+				ticket = tq.peek();
+				offset = count;
+			}
+			if ((count - offset) % (tq.size()) == 0) {
+				ticket--;
+			}
+			tq.add(tq.peek() - 1);
+			tq.pop();
+			if (tq.peek() <= 0) {
+				tq.pop();
+			}
+
+			System.out.println(tq);
+			mins++;
+			count++;
+
+		}
+		System.out.println("stop");
+		return mins;
+	}
 }
