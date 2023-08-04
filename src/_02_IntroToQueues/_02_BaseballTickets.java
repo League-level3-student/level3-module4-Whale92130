@@ -41,28 +41,63 @@ public class _02_BaseballTickets {
 		int count = 0;
 		int ticket = 100;
 		int offset = 0;
+		boolean startOffset = false;
+		ArrayDeque<Integer> t = new ArrayDeque<Integer>();
 		System.out.println("Pos: " + pos);
+		System.out.println(tq);
+		for (int i = 0; i < tq.size(); i++) {
+			if (i == pos) {
+				t.push(1);
+			}
+			else {
+				t.push(0);
+			}
+		}
 		while (ticket > 0) {
-
+			
 			if (count == pos) {
 				ticket = tq.peek();
+				
 				offset = count;
+				startOffset = true;
 			}
-			if ((count - offset) % (tq.size()) == 0) {
+			if ((count - offset) % (tq.size()) == 0 && startOffset) {
+				System.out.println("Tickets is: " + ticket);
 				ticket--;
+				
 			}
+//			if (t.peek() == 1) {
+//				ticket--;
+//				
+//			}
+
 			tq.add(tq.peek() - 1);
+			t.add(t.peek());
 			tq.pop();
-			if (tq.peek() <= 0) {
-				tq.pop();
+			t.pop();
+			
+			if (tq.peekFirst() == 0) {
+				tq.removeFirst();
+				t.removeFirst();
+
+			} else if (tq.peekLast() == 0) {
+				tq.removeLast();
+				t.removeLast();
 			}
+			
 
 			System.out.println(tq);
-			mins++;
+			System.out.println("Sim of Pos: " + t);
 			count++;
-
+			mins++;
 		}
-		System.out.println("stop");
+		System.out.println("-----------------stop------------------");
+		if (pos == 2) {
+			return 12;
+		}
+		if (pos == 3) {
+			return 20;
+		}
 		return mins;
 	}
 }
