@@ -18,6 +18,7 @@ public class Hangman implements KeyListener {
 	JLabel label2 = new JLabel();
 	StringBuilder build = new StringBuilder();
 	String selectedWord;
+	String blank = "";
 	int lives = 9;
 	int index = 0;
 	void hangMan() {
@@ -73,9 +74,10 @@ public class Hangman implements KeyListener {
 		
 		frame.addKeyListener(this);
 		for (int i = 0; i < selectedWord.length()+1; i++) {
-			build.append("_");
+			blank=blank+"_";
 		}
-		label1.setText(build.toString());
+		build.append(blank);
+		
 	}
 
 	@Override
@@ -85,13 +87,15 @@ public class Hangman implements KeyListener {
 		String inputS = input+"";
 		if (selectedWord.contains(inputS)) {
 			System.out.println("CORRECT");
-			index = selectedWord.indexOf(input);
-			build.deleteCharAt(index);
-			build.insert(index, input);
+			char[] chars = selectedWord.toCharArray();
+			for (int i = 0; i < chars.length; i++) {
+				
+			}
 		}
 		else {
 			lives--;
 			label2.setText("Lives Left: " + lives);
+			System.out.println("INCORRECT");
 		}
 	}
 
