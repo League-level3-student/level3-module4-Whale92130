@@ -32,18 +32,26 @@ public class MazeMaker {
 					maze.getCell(ran, ran2).setNorthWall(false);
 					System.out.println("wall gone");
 					wallGone = true;
+					int ran3 = randGen.nextInt(5);
+					maze.getCell(4, ran3).setSouthWall(false);
 				} else if (ran == 4) {
 					maze.getCell(ran, ran2).setSouthWall(false);
 					System.out.println("wall gone");
 					wallGone = true;
+					int ran3 = randGen.nextInt(5);
+					maze.getCell(0, ran3).setNorthWall(false);
 				} else if (ran2 == 0) {
 					maze.getCell(ran, ran2).setWestWall(false);
 					System.out.println("wall gone");
 					wallGone = true;
+					int ran3 = randGen.nextInt(5);
+					maze.getCell(ran3, 4).setEastWall(false);
 				} else if (ran2 == 4) {
 					maze.getCell(ran, ran2).setEastWall(false);
 					System.out.println("wall gone");
 					wallGone = true;
+					int ran3 = randGen.nextInt(5);
+					maze.getCell(ran3, 0).setWestWall(false);
 				}
 			} else {
 				wallGone = false;
@@ -79,8 +87,12 @@ public class MazeMaker {
 		// C5. call the selectNextPath method with the current cell
 		selectNextPath(currentCell);
 		}
-		if (getUnvisitedNeighbors(currentCell).size() == 0) {
+		if (getUnvisitedNeighbors(currentCell).isEmpty() == true) {
 		// D. if all neighbors are visited
+			if (uncheckedCells.isEmpty() == false) {
+				currentCell = uncheckedCells.pop();
+				selectNextPath(currentCell);
+			}
 		}
 		// D1. if the stack is not empty
 
